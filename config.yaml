@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------
+#  Trend bot config. Edit this, not the code.
+# ---------------------------------------------------------------
+
+exchange: binance          # any ccxt exchange id: binance, bybit, kraken, luno, okx... (VALR is not in ccxt)
+symbol: BTC/USDT
+timeframe: 15m             # 15m matches the dashboard default. 1h, 4h, 1d also work
+
+strategy:
+  ema_fast: 20
+  ema_slow: 50
+  ema_trend: 200           # only go long when price is above this (set 0 to disable)
+  rsi_period: 14
+  rsi_entry_min: 50        # RSI must be at least this to confirm momentum
+  rsi_entry_max: 70        # ...and below this so we don't buy the top
+  atr_period: 14
+  atr_mode: close           # close = average daily close-to-close move (matches the dashboard); range = classic ATR from highs/lows
+  stop_atr_mult: 2.0       # initial stop = entry - 2 x ATR
+  take_profit_atr_mult: 4.0  # take profit = entry + 4 x ATR (0 = off)
+  trailing_atr_mult: 3.0   # trailing stop distance once in profit (0 = off)
+
+risk:
+  starting_balance: 1000   # quote currency (USDT) for backtest / paper
+  risk_per_trade_pct: 1.0  # % of equity lost if the stop is hit
+  max_position_pct: 95     # never put more than this % of equity in one position
+  daily_loss_limit_pct: 5  # paper mode halts for the day after losing this much
+  fee_pct: 0.1             # per side (Binance spot taker is ~0.1%)
+  slippage_pct: 0.05       # assumed per fill
+
+backtest:
+  start: 2025-10-01         # 15m candles: ~35,000 per year, so keep the window modest
+  end: null                # null = now
+  data_csv: null           # optional: path to your own OHLCV CSV instead of downloading
+
+paper:
+  poll_seconds: 30         # how often to check whether a new candle has closed
+  state_file: state/paper_state.json
+  kill_switch_file: STOP   # create a file named STOP in this folder to halt the bot
+
+dashboard:
+  host: 127.0.0.1
+  port: 8765               # open http://localhost:8765 in your browser
+
+logging:
+  level: INFO
+  dir: logs

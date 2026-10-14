@@ -1,11 +1,16 @@
+# runtime output
 logs/
 state/
 reports/
 data/
 STOP
+
+# python
 __pycache__/
 *.pyc
 .venv/
 venv/
+
+# secrets (never commit exchange API keys)
 .env
 *.key
