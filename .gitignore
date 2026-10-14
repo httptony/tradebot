@@ -1,0 +1,11 @@
+logs/
+state/
+reports/
+data/
+STOP
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.key
